@@ -1,4 +1,4 @@
-List<String> courses = ['Flutter', 'CCNA', 'CCNP', 'CCIE', 'cyber Security'];
+List<String> course = ['Flutter', 'CCNA', 'CCNP', 'CCIE', 'cyber Security'];
 List<String> uni = [
   'Khyber Medical University',
   'Islamia College University',
