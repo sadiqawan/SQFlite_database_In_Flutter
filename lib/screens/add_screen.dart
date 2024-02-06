@@ -27,7 +27,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Add students '),
+        title: const Center(child: Text('Add students ')),
       ),
       body: Form(
         key: formKey,
@@ -73,7 +73,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     if (text == null || text.isEmpty) {
                       return 'Please enter phone No';
                     } else {
-                      if (text.length < 11) {
+                      if (text.length == 11) {
                         return 'Provide valid No';
                       } else {
                         phone = text;
@@ -160,20 +160,32 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: ElevatedButton(
                     onPressed: () async {
                       if (formKey.currentState!.validate()) {
+                        // Save student
                         Student student = Student(
-                            name: name,
-                            email: email,
-                            phone: phone,
-                            course: _selectedValue,
-                            uni: _selectedUni);
+                          name: name,
+                          email: email,
+                          phone: phone,
+                          course: _selectedValue,
+                          uni: _selectedUni,
+                        );
+
                         int result = await DatabaseHelper.instance.saveStudent(student);
-                        if (result == 0){
-                          Fluttertoast.showToast(msg: 'Student Recorde Saved', backgroundColor: Colors.green);
+
+                        if( result > 0 ){
+                          print(result);
+
+                          Fluttertoast.showToast(msg: 'Record Saved', backgroundColor: Colors.green);
+
+                          formKey.currentState!.reset();
+                          setState(() {
+
+                          });
                         }else{
-                          Fluttertoast.showToast(msg: 'Failed',backgroundColor: Colors.red );
+                          print(result);
+                          Fluttertoast.showToast(msg: 'Failed', backgroundColor: Colors.red);
+
                         }
                       }
-
                     },
                     child: const Text('Save')),
               ),

@@ -48,6 +48,7 @@ class DatabaseHelper {
 
     ''');
   }
+
   // insert
   Future<int> saveStudent(Student student) async {
     // add student to table
@@ -67,4 +68,33 @@ class DatabaseHelper {
     return result;
   }
 
+  // read operation
+  Future<List<Student>> getAllStudents() async {
+    List<Student> students = [];
+
+    Database db = await instance.database;
+
+    // read data from table
+    // we will get list of maps
+    List<Map<String, dynamic>> listMap = await db.query(tableStudent);
+
+    // List<Map<String, dynamic>> listOfStudents = await db.rawQuery('SELECT * from $tableStudent');
+
+    // converting map to object and then adding to the list
+    for (var studentMap in listMap) {
+      Student student = Student.fromMap(studentMap);
+      students.add(student);
+    }
+
+    //await Future.delayed(const Duration(seconds: 2));
+
+    return students;
+  }
+  // delete
+  Future<int> deleteStudent(int id) async {
+    Database db = await instance.database;
+    int result = await db.rawDelete('DELETE FROM $tableStudent where id=?', [id]);
+    //int result = await db.delete(tableStudent, where: 'id=?', whereArgs: [id]);
+    return result;
+  }
 }

@@ -6,6 +6,7 @@ const colMobile = 'phone';
 const colCourse = 'course';
 const colUni = 'uni';
 List<String> uni = [
+  'Select Uni',
   'Khyber Medical University',
   'Islamia College University',
   'Agricultural University Peshawar',
