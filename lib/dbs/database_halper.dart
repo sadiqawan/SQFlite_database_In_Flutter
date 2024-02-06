@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
+import 'package:sqflite_assign/models/student_model.dart';
 import 'package:sqflite_assign/util/const_file.dart';
 
 class DatabaseHelper {
@@ -47,4 +48,23 @@ class DatabaseHelper {
 
     ''');
   }
+  // insert
+  Future<int> saveStudent(Student student) async {
+    // add student to table
+
+    Database db = await instance.database;
+
+    // String insertQuery = '''
+    // INSERT INTO $tableStudent
+    //   ( $colName, $colEmail, $colMobile, $colCourse, $colUni )
+    //   VALUES ( ?, ?, ?, ?, ? )
+    // ''';
+
+    //int result = await db.rawInsert(insertQuery, [student.name, student.email, student.mobile, student.course, student.uni ]);
+
+    int result = await db.insert(tableStudent, student.toMap());
+
+    return result;
+  }
+
 }

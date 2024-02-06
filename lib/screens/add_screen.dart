@@ -1,4 +1,11 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:sqflite_assign/dbs/database_halper.dart';
+import 'package:sqflite_assign/models/student_model.dart';
+import 'package:sqflite_assign/screens/list_screen.dart';
+import 'package:sqflite_assign/util/const_file.dart';
 import 'package:sqflite_assign/util/datastore_dropdown_litms.dart';
 import 'package:sqflite_assign/widgets/text_form_fild.dart';
 
@@ -13,6 +20,7 @@ class _HomeScreenState extends State<HomeScreen> {
   String _selectedValue = course[0];
   String _selectedUni = uni[0];
   late String name, email, phone;
+
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   @override
@@ -24,7 +32,7 @@ class _HomeScreenState extends State<HomeScreen> {
       body: Form(
         key: formKey,
         child: Padding(
-          padding: const EdgeInsets.all(10.0),
+          padding: const EdgeInsets.all(20.0),
           child: ListView(
             children: [
               CustomTextField(
@@ -134,7 +142,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     return null;
                   }
                 },
-                items: course.map((String val) {
+                items: uni.map((String val) {
                   return DropdownMenuItem(
                     value: val,
                     child: Text(
@@ -143,20 +151,42 @@ class _HomeScreenState extends State<HomeScreen> {
                   );
                 }).toList(),
               ),
+              const SizedBox(
+                height: 25,
+              ),
               SizedBox(
                 width: double.infinity,
-                height: 25,
-                child:
-                    ElevatedButton(onPressed: () {}, child: const Text('Save')),
+                height: 50,
+                child: ElevatedButton(
+                    onPressed: () async {
+                      if (formKey.currentState!.validate()) {
+                        Student student = Student(
+                            name: name,
+                            email: email,
+                            phone: phone,
+                            course: _selectedValue,
+                            uni: _selectedUni);
+                        int result = await DatabaseHelper.instance.saveStudent(student);
+                        if (result == 0){
+                          Fluttertoast.showToast(msg: 'Student Recorde Saved', backgroundColor: Colors.green);
+                        }else{
+                          Fluttertoast.showToast(msg: 'Failed',backgroundColor: Colors.red );
+                        }
+                      }
+
+                    },
+                    child: const Text('Save')),
               ),
               const SizedBox(
                 height: 20,
               ),
               SizedBox(
                 width: double.infinity,
-                height: 25,
+                height: 50,
                 child: ElevatedButton(
-                    onPressed: () {}, child: const Text('View All')),
+                    onPressed: () {
+                      Navigator.of(context).push(MaterialPageRoute(builder: (context) => const StudentListScreen()));
+                    }, child: const Text('View All')),
               ),
             ],
           ),
