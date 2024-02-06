@@ -26,6 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
       appBar: AppBar(
         title: const Center(child: Text('Add students ')),
       ),
@@ -85,6 +86,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 height: 20,
               ),
               DropdownButtonFormField(
+                decoration:const InputDecoration(
+                  border: OutlineInputBorder()
+                ),
                 value: _selectedValue,
                 hint: const Text(
                   'choose one',
@@ -109,6 +113,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 },
                 items: course.map((String val) {
                   return DropdownMenuItem(
+
                     value: val,
                     child: Text(
                       val,
@@ -120,6 +125,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 height: 20,
               ),
               DropdownButtonFormField(
+                decoration: const InputDecoration(
+                    border: OutlineInputBorder()
+                ),
                 value: _selectedUni,
                 hint: const Text(
                   'choose one',
@@ -169,41 +177,45 @@ class _HomeScreenState extends State<HomeScreen> {
                           uni: _selectedUni,
                         );
 
-                        int result = await DatabaseHelper.instance.saveStudent(student);
+                          int result = await DatabaseHelper.instance
+                              .saveStudent(student);
 
-                        if( result > 0 ){
-                          print(result);
+                          if (result > 0) {
+                            print(result);
 
-                          Fluttertoast.showToast(msg: 'Record Saved', backgroundColor: Colors.green);
+                            Fluttertoast.showToast(
+                                msg: 'Record Saved',
+                                backgroundColor: Colors.green);
 
-                          formKey.currentState!.reset();
-                          setState(() {
-
-                          });
-                        }else{
-                          print(result);
-                          Fluttertoast.showToast(msg: 'Failed', backgroundColor: Colors.red);
-
+                            formKey.currentState!.reset();
+                            setState(() {});
+                          } else {
+                            print(result);
+                            Fluttertoast.showToast(
+                                msg: 'Failed', backgroundColor: Colors.red);
+                          }
                         }
-                      }
-                    },
-                    child: const Text('Save')),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              SizedBox(
-                width: double.infinity,
-                height: 50,
-                child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.of(context).push(MaterialPageRoute(builder: (context) => const StudentListScreen()));
-                    }, child: const Text('View All')),
-              ),
-            ],
+                      },
+                      child: const Text('Save')),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                SizedBox(
+                  width: double.infinity,
+                  height: 50,
+                  child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => const StudentListScreen()));
+                      },
+                      child: const Text('View All')),
+                ),
+              ],
+            ),
           ),
         ),
-      ),
-    );
+      );
+
   }
 }

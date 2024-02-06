@@ -21,7 +21,7 @@ Padding(
         gradient: const LinearGradient(
             begin: Alignment.topRight,
             end: Alignment.bottomLeft,
-            colors: [Colors.red, Colors.green],
+            colors: [Colors.red, Colors.amberAccent, Colors.greenAccent],
         ),
       borderRadius: BorderRadius.circular(15)
     ),

@@ -21,6 +21,7 @@ class _StudentListScreenState extends State<StudentListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xFFdbbcaa),
       appBar: AppBar(
         title: const Text('Student List'),
         actions: [
@@ -90,7 +91,7 @@ class _StudentListScreenState extends State<StudentListScreen> {
                     onUpdate: () async {
                       bool updated = await Navigator.of(context)
                           .push(MaterialPageRoute(builder: (context) {
-                        return UpdateScreen();
+                        return UpdateScreen( student:  student,);
                       }));
 
                       if (updated) {
