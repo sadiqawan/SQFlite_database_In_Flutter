@@ -5,6 +5,7 @@ class CustomTextField extends StatelessWidget {
   final String? labelText;
   final String? Function(String?)? validator;
   final TextInputType keybordType;
+  final initilaValue;
 
   const CustomTextField({
     Key? key,
@@ -12,11 +13,13 @@ class CustomTextField extends StatelessWidget {
     required this.labelText,
     required this.validator,
     required this.keybordType,
+    this.initilaValue
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      initialValue: initilaValue,
       decoration: InputDecoration(
         hintText: hintText,
         labelText: labelText,

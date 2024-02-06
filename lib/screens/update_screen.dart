@@ -41,6 +41,8 @@ class _UpdateScreenState extends State<UpdateScreen> {
           child: ListView(
             children: [
               CustomTextField(
+                initilaValue: widget.student.name,
+
                   keybordType: TextInputType.text,
                   hintText: 'Enter Student Name',
                   labelText: 'Name',
@@ -56,6 +58,7 @@ class _UpdateScreenState extends State<UpdateScreen> {
                 height: 20,
               ),
               CustomTextField(
+                  initilaValue: widget.student.email,
                   keybordType: TextInputType.emailAddress,
                   hintText: 'Enter your Email',
                   labelText: 'Email',
@@ -71,6 +74,7 @@ class _UpdateScreenState extends State<UpdateScreen> {
                 height: 20,
               ),
               CustomTextField(
+                  initilaValue: widget.student.phone,
                   keybordType: TextInputType.phone,
                   hintText: 'Phone No',
                   labelText: 'Phone',
