@@ -33,7 +33,10 @@ class _UpdateScreenState extends State<UpdateScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Update data'),),
+      backgroundColor: Color(0xffb6d084),
+      appBar: AppBar(
+        title: const Text('Update data'),
+      ),
       body: Form(
         key: formKey,
         child: Padding(
@@ -41,8 +44,7 @@ class _UpdateScreenState extends State<UpdateScreen> {
           child: ListView(
             children: [
               CustomTextField(
-                initilaValue: widget.student.name,
-
+                  initilaValue: widget.student.name,
                   keybordType: TextInputType.text,
                   hintText: 'Enter Student Name',
                   labelText: 'Name',
@@ -50,7 +52,7 @@ class _UpdateScreenState extends State<UpdateScreen> {
                     if (text == null || text.isEmpty) {
                       return 'Please enter Student name';
                     } else {
-                      name = text;
+                      name = text.trim();
                       return null;
                     }
                   }),
@@ -66,7 +68,7 @@ class _UpdateScreenState extends State<UpdateScreen> {
                     if (text == null || text.isEmpty) {
                       return 'please enter your email';
                     } else {
-                      email = text;
+                      email = text.trim();
                       return null;
                     }
                   }),
@@ -82,10 +84,10 @@ class _UpdateScreenState extends State<UpdateScreen> {
                     if (text == null || text.isEmpty) {
                       return 'Please enter phone No';
                     } else {
-                      if (text.length == 11) {
+                      if (text.length <= 10) {
                         return 'Provide valid No';
                       } else {
-                        phone = text;
+                        phone = text.trim();
                         return null;
                       }
                     }
@@ -180,15 +182,14 @@ class _UpdateScreenState extends State<UpdateScreen> {
                           uni: _selectedUni,
                         );
 
-                        int result =
-                            await DatabaseHelper.instance.saveStudent(student);
+                        int result = await DatabaseHelper.instance
+                            .updateStudent(student);
 
                         if (result > 0) {
                           Fluttertoast.showToast(
-                              msg: 'Record Saved', backgroundColor: Colors.green);
-
+                              msg: 'Record Updated',
+                              backgroundColor: Colors.green);
                           Navigator.pop(context, true);
-                          setState(() {});
                         } else {
                           Fluttertoast.showToast(
                               msg: 'Failed', backgroundColor: Colors.red);

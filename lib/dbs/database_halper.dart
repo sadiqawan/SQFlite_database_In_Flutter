@@ -103,5 +103,26 @@ class DatabaseHelper {
     int result = await db.update(tableStudent, student.toMap(), where: 'id=?', whereArgs: [student.id]);
     return result;
   }
+  Future<List<Student>> searchStudents({required String name}) async {
+    List<Student> students = [];
 
+    Database db = await instance.database;
+
+    // read data from table
+    // we will get list of map
+    // wild card search
+    List<Map<String, dynamic>> listMap = await db.query(tableStudent, where: 'name like ?', whereArgs: ['%$name%']);
+
+    // List<Map<String, dynamic>> listOfStudents = await db.rawQuery('SELECT * from $tableStudent');
+
+    // converting map to object and then adding to the list
+    for (var studentMap in listMap) {
+      Student student = Student.fromMap(studentMap);
+      students.add(student);
+    }
+
+    //await Future.delayed(const Duration(seconds: 2));
+
+    return students;
+  }
 }

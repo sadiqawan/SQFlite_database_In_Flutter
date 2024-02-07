@@ -1,11 +1,9 @@
-import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:sqflite_assign/dbs/database_halper.dart';
 import 'package:sqflite_assign/models/student_model.dart';
 import 'package:sqflite_assign/widgets/student_card.dart';
-import 'package:sqflite_assign/widgets/student_info_key_value.dart';
 
 import 'search_screen.dart';
 import 'update_screen.dart';
@@ -21,7 +19,7 @@ class _StudentListScreenState extends State<StudentListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFdbbcaa),
+      backgroundColor: const Color(0xFFfca311),
       appBar: AppBar(
         title: const Text('Student List'),
         actions: [
@@ -91,7 +89,7 @@ class _StudentListScreenState extends State<StudentListScreen> {
                     onUpdate: () async {
                       bool updated = await Navigator.of(context)
                           .push(MaterialPageRoute(builder: (context) {
-                        return UpdateScreen( student:  student,);
+                        return UpdateScreen( student:  student);
                       }));
 
                       if (updated) {

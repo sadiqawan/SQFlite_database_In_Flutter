@@ -1,4 +1,3 @@
-import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -26,7 +25,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
+      backgroundColor: const Color(0xFFa4fc8f),
       appBar: AppBar(
         title: const Center(child: Text('Add students ')),
       ),
@@ -74,7 +73,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     if (text == null || text.isEmpty) {
                       return 'Please enter phone No';
                     } else {
-                      if (text.length == 11) {
+                      if (text.length <= 11) {
                         return 'Provide valid No';
                       } else {
                         phone = text;
